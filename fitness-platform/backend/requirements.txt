@@ -1,0 +1,21 @@
+# Runtime dependencies.
+#
+# Source of truth is pyproject.toml — this file is kept in sync for
+# platforms/tools that expect requirements.txt (e.g. some PaaS buildpacks).
+# When adding/upgrading a dependency, update BOTH files.
+
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+sqlalchemy>=2.0.35
+asyncpg>=0.29.0
+psycopg[binary]>=3.2.0
+alembic>=1.13.0
+pydantic>=2.9.0
+pydantic-settings>=2.5.0
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+redis>=5.0.0
+celery>=5.4.0
+python-multipart>=0.0.9
+slowapi>=0.1.9
+structlog>=24.4.0
