@@ -16,7 +16,7 @@ RUN pip install --upgrade pip
 
 # --- Dev stage: includes dev/test dependencies, runs with --reload ---
 FROM base AS dev
-RUN pip install -e ".[dev]" --no-deps 2>/dev/null || pip install ".[dev]"
+RUN pip install -e ".[dev]"
 COPY . .
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
