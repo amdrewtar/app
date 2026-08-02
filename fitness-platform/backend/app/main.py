@@ -11,19 +11,17 @@ from typing import AsyncIterator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
-from slowapi.util import get_remote_address
 
 from app.core.config import get_settings
 from app.core.exceptions import AppError, app_error_handler
 from app.core.health import router as health_router
 from app.core.logging import configure_logging, get_logger
+from app.core.rate_limit import limiter
 
 settings = get_settings()
 logger = get_logger(__name__)
-
-limiter = Limiter(key_func=get_remote_address, default_limits=[settings.rate_limit_default])
 
 
 @asynccontextmanager
@@ -67,9 +65,11 @@ def create_app() -> FastAPI:
 
     app.include_router(health_router)
 
-    # Module routers are registered here as they're implemented, e.g.:
-    # from app.auth.router import router as auth_router
-    # app.include_router(auth_router, prefix=f"{settings.api_v1_prefix}/auth", tags=["auth"])
+    from app.auth.router import router as auth_router
+    from app.users.router import router as users_router
+
+    app.include_router(auth_router, prefix=f"{settings.api_v1_prefix}/auth", tags=["auth"])
+    app.include_router(users_router, prefix=f"{settings.api_v1_prefix}/users", tags=["users"])
 
     return app
 

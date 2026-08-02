@@ -18,9 +18,9 @@ from app.core.config import get_settings
 from app.core.db import Base
 
 # --- Import all ORM models here so Base.metadata is complete ---
-# from app.users.models import User  # noqa: F401
-# from app.exercises.models import Exercise  # noqa: F401
-# (uncomment/extend as each module's models.py is implemented)
+from app.users.models import User, UserEquipmentRow, UserModules  # noqa: F401
+from app.auth.models import RefreshToken  # noqa: F401
+# (add new modules' models here as they're implemented)
 
 config = context.config
 

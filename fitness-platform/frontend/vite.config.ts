@@ -11,10 +11,10 @@ export default defineConfig({
     },
   },
   server: {
-    host: true,
+    host: true, // required so the Vite dev server is reachable from inside Docker
     port: 5173,
     watch: {
-      usePolling: true,
+      usePolling: true, // needed for hot-reload reliability on some Docker volume setups
     },
   },
   test: {
